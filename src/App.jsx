@@ -37,8 +37,10 @@ function App() {
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
+      document.body.classList.add('app-container')
     } else {
       document.body.classList.remove('dark-mode');
+      document.body.classList.remove('app-container')
     }
   }, [isDarkMode]);
 
@@ -169,7 +171,9 @@ function App() {
                   checked={isDarkMode}
                   onChange={handleDarkModeToggle}
                 />
-                <label htmlFor="dark-mode-toggle" className="slider"></label>
+                <label htmlFor="dark-mode-toggle" className="slider">
+                  <span className="icon"></span>
+                </label>
               </div>
 
               {isLoggedIn ? (

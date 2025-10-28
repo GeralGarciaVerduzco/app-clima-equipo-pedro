@@ -18,13 +18,14 @@
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
+
 body.dark-mode {
   --bg-0: #1a1a2e;
   --tier1: #091c47;
   --tier2: #2a2a4a;
   --tier3: #3a3a5a;
   
-  --text-dark: #e0e0ff;
+  --text-dark: #e0ffe2;
   --text-light: #1a1a2e;
   
   /* MODIFICACIÓN: Bordes más oscuros y sutiles */
@@ -33,6 +34,10 @@ body.dark-mode {
   --bd-3: #4a4a7a;
   
   --shadow-soft: 0 10px 30px rgba(0,0,0,.25);
+}
+
+body.app-container{
+  background-color: #353f4f;
 }
 
 *{ box-sizing:border-box }
@@ -78,7 +83,7 @@ body{
   width: 100%;
   /* BORRADO: max-width: 1200px; */
   display: grid; 
-  grid-template-columns: 1fr auto 1fr; /* Col 1 (flexible), Col 2 (auto), Col 3 (flexible) */
+  grid-template-columns: 1fr 2fr 1fr; /* Col 1 (flexible), Col 2 (auto), Col 3 (flexible) */
   align-items: center;
   gap: 16px;
 }
@@ -315,14 +320,24 @@ body.dark-mode .card:hover {
 }
 .now .wicon img{width: clamp(68px, 18vw, 110px);height:auto; display:block; object-fit: contain;filter: drop-shadow(0 6px 12px rgba(0,0,0,.08));}
 @media (max-width: 560px){
-  .now{ min-height: 170px; padding: 16px; }
-  .now .temp{ font-size: clamp(1.9rem, 7vw, 2.3rem); }
-  .now .wicon img{ width: clamp(60px, 24vw, 96px); }
-  /* MODIFICACIÓN: Ajustes responsive para el nuevo padding */
-  .now .topleft { left: 16px; }
-  .now .minmax { top: 16px; right: 16px; }
-  .now .statusblock { left: 16px; bottom: 16px; }
-  .now .wicon { right: 16px; bottom: 12px; }
+  .now {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .now .topleft,
+  .now .minmax,
+  .now .statusblock,
+  .now .wicon {
+    position: static;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .now .wicon {
+    align-self: flex-end;
+  }
 }
 
 .sun-card{
@@ -488,18 +503,31 @@ body.dark-mode .card:hover {
   transition: background-color 0.3s ease;
 }
 
-.slider:not(.temp-slider)::before {
-  content: "";
+.slider .icon {
   position: absolute;
-  top: 3px;
-  left: 4px;
-  width: 20px;
-  height: 20px;
-  background-color: white;
+  
+  width: 27px;
+  height: 27px;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-image 0.3s ease;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  /* Icono modo claro (apagado) */
+  background-image: url("../public/img/sun.png");
 }
+
+
+
+/* Cuando está encendido */
+.toggle-dark:checked + .slider .icon {
+  transform: translateX(21px);
+
+  /* Icono modo oscuro */
+  background-image: url("../public/img/llena.png");
+}
+
 .toggle-dark:checked + .slider:not(.temp-slider)::before {
   transform: translateX(21px);
 }
