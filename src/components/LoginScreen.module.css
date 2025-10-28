@@ -1,0 +1,218 @@
+:root{
+  --bg:#eaf3f5;
+  --panel:#ffffff; /* Panel más blanco para contraste */
+  --text:#1e293b; /* Texto más oscuro para mayor legibilidad */
+  --muted:#64748b;
+  --line:#e2e8f0; /* Borde más sutil */
+  --brand:#0a63d9; /* Azul vibrante para la marca */
+  --band: transparent; 
+  --radius-xl:24px; /* Ligeramente más redondeado */
+  --radius-lg:16px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; /* Usamos Inter para un look moderno */
+  color:var(--text);
+  background:var(--bg);
+  
+  /* Aseguramos que el body ocupe toda la altura */
+  min-height: 100vh;
+}
+
+.authPage {
+    /* Centrado completo con Flexbox */
+    width: 100%;
+    min-height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px; /* Añadir padding para móvil */
+}
+
+
+.shell{
+  max-width:1400px;
+  /* Quitamos el margin fijo, el centrado lo maneja el padre (.authPage) */
+  margin: 0 auto; 
+  padding:0; /* Quitamos padding aquí, ya lo tiene authPage */
+  display:grid;
+  grid-template-columns: 1.2fr 1fr; 
+  gap:60px; /* Aumentamos el espacio entre el arte y el formulario */
+  align-items:center;
+  width: 100%; 
+}
+
+/* Estilos de la Presentación/Login/Registro */
+
+.art{
+  border-radius: var(--radius-xl);
+  overflow:hidden;
+  background: #6ecf5d; 
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  position:relative;
+  height:540px; /* Un poco más alto */
+}
+.band{
+  position:relative;
+  width:100%;
+  height:100%;
+  background: var(--band);
+  border-radius: var(--radius-xl);
+}
+.band .sun{
+  position:absolute; left:24px; top:24px; width:100px;
+}
+.band .mountains{
+  position:absolute; left:20px; bottom:0; width:450px;
+}
+@media (max-width: 1024px){ /* Ajuste de breakpoint */
+  .shell{
+    grid-template-columns: 1fr; 
+  }
+  .art { display: none; } /* Ocultar arte en móvil para priorizar formulario */
+}
+@media (max-width: 960px){
+  .band .mountains{ width:300px; left:10px }
+  .band .sun{ width:80px; left:12px }
+}
+
+.formCard{
+  /* Cambié .card a .formCard ya que tu componente lo usa */
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px 60px; /* Aumentamos el padding para más espacio */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  max-width:600px;
+  text-align: center;
+}
+h1{
+  font-size: clamp(38px, 5vw, 48px); /* Ligeramente más pequeño */
+  line-height:1.1;
+  margin: 0 0 32px; /* Más margen inferior para separarlo */
+  letter-spacing:.5px;
+  font-weight: 800; /* Más peso visual */
+}
+.label{
+  display:block;
+  color:var(--text);
+  opacity:.9;
+  margin: 16px 0 8px; /* Más espacio vertical */
+  text-align: left; /* Alineamos las etiquetas a la izquierda */
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input{
+  width:100%;
+  padding:14px 20px; /* Reducimos el padding para que no se vea tan alto */
+  border:1px solid var(--line);
+  background:#fff; /* Fondo blanco explícito */
+  border-radius: var(--radius-lg); /* Bordes más suaves */
+  outline:none;
+  font-size: 16px; 
+  font-family: inherit; /* Hereda la fuente Inter */
+  color:var(--text);
+  margin-bottom:12px;
+}
+.input:focus{
+    border-color: var(--brand);
+}
+.input::placeholder{ color:var(--muted); opacity:1; }
+
+.check{
+  display:flex; 
+  align-items:center; 
+  gap:10px;
+  margin: 12px 0 0;
+  font-size: 14px;
+  color:var(--muted);
+  justify-content: flex-start; /* Alineamos el checkbox a la izquierda */
+}
+.check input{
+  width:20px; 
+  height:20px; 
+  border-radius:6px;
+  appearance:none; 
+  outline:none; 
+  cursor:pointer;
+  background:#fff; 
+  border:1.5px solid var(--line);
+  position:relative;
+  flex-shrink: 0;
+}
+.check input:checked{
+  background: var(--brand); /* Azul de marca */
+  border-color: var(--brand);
+}
+.check input:checked::after{
+  /* Icono de check SVG blanco */
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M9.55 17.54L4.8 12.8l1.4-1.4l3.35 3.34l7.13-7.13l1.4 1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  margin-top:40px; /* Aumentamos el margen superior para separarlo */
+  padding:16px 22px;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight:700;
+  color:#ffffff; /* Texto blanco para alto contraste */
+  background:var(--brand); /* Usamos el color de marca */
+  border:none;
+  border-radius:var(--radius-xl); /* Bordes muy redondeados */
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+}
+.btn:hover{ 
+    background: #0953c0; /* Un poco más oscuro al pasar el ratón */
+}
+.btn:active{ transform: translateY(2px) }
+.btn:focus-visible{
+  outline:3px solid rgba(10,99,217,.4);
+  outline-offset:2px;
+}
+
+.formLink {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--muted);
+}
+
+.formLink span {
+    color: var(--brand);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.formLink span:hover {
+    color: #0953c0;
+}
+
+
+/* El resto de las clases */
+.snow{
+  display:flex; justify-content:center; align-items:center;
+  margin:34px 0 0;
+}
+.snow .logo{
+  width:min(280px, 40vw);
+  height:auto; display:block;
+}
+
+@media (max-width: 600px){
+  .band{ height: 220px }
+  .formCard{ padding: 36px 20px 48px; max-width:100% }
+}

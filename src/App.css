@@ -1,0 +1,654 @@
+:root{
+  --bg-0:#F4FAFF;
+  --tier1:#a8cfea;
+  --tier2:#fafaff;
+  --tier3:#d6ebf8;
+
+  --text-dark:#353f4f;
+  --text-light:#fafaff;
+
+  /* MODIFICACIÓN: Bordes suavizados (se usarán menos) */
+  --bd-1: #e7edf2;
+  --bd-2: #e7edf2;
+  --bd-3: #eef3f8;
+
+  --radius:16px;
+  
+  /* MODIFICACIÓN: Sombra más suave y difuminada para un look "premium" */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode {
+  --bg-0: #1a1a2e;
+  --tier1: #091c47;
+  --tier2: #2a2a4a;
+  --tier3: #3a3a5a;
+  
+  --text-dark: #e0e0ff;
+  --text-light: #1a1a2e;
+  
+  /* MODIFICACIÓN: Bordes más oscuros y sutiles */
+  --bd-1: #3a3a5a;
+  --bd-2: #3a3a5a;
+  --bd-3: #4a4a7a;
+  
+  --shadow-soft: 0 10px 30px rgba(0,0,0,.25);
+}
+
+*{ box-sizing:border-box }
+html,body{ height:100% }
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg-0);
+  color: var(--text-dark);
+  transition: background 0.3s, color 0.3s;
+}
+
+.app{
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+  min-height: 100vh;
+}
+
+/* --- INICIO: SECCIÓN DEL TOPBAR (VERSIÓN FINAL) --- */
+.topbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bg-0);
+  z-index: 1000;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  /* BORRADO: justify-content: center; */
+  transition: background 0.3s;
+  border-bottom: 1px solid var(--bd-2);
+  
+  /* MODIFICADO: Padding individual para control total */
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 40px;  /* <-- Espacio del logo a la izquierda */
+  padding-right: 40px;   /* <-- Espacio de los controles a la derecha */
+}
+
+/* REGLA MODIFICADA (Para 3 columnas con GRID) */
+.topbar-content {
+  width: 100%;
+  /* BORRADO: max-width: 1200px; */
+  display: grid; 
+  grid-template-columns: 1fr auto 1fr; /* Col 1 (flexible), Col 2 (auto), Col 3 (flexible) */
+  align-items: center;
+  gap: 16px;
+}
+
+.brand{
+  display:flex; 
+  align-items:center; 
+  gap:12px;
+  font-weight:800; 
+  letter-spacing:.2px; 
+  color:var(--text-dark);
+  cursor: pointer;
+  /* (Hijo 1) Se alinea a la izquierda de la Columna 1 */
+  justify-self: start; 
+}
+.brand .logo-img{ width:28px; height:28px; display:block; }
+.brand span{ font-size:1.2rem }
+
+/* REGLA MODIFICADA (Ahora es el item DERECHA) */
+.controls{
+  display:flex; 
+  align-items:center; 
+  gap:10px;
+  /* (Hijo 3) Se alinea a la derecha de la Columna 3 */
+  justify-self: end; 
+}
+
+/* REGLA MODIFICADA (Ahora es el item CENTRO) */
+.search{
+  /* (Hijo 2) Ocupa la Columna 2 (auto) */
+  position: relative;
+  width: 100%;
+  max-width: 5000px;
+  min-width: 150px; 
+}
+
+.search .sicon{
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  opacity: .9;
+  z-index: 2;
+}
+.search input{
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  background: var(--tier1);
+  color: var(--text-dark);
+  border: 1px solid var(--bd-1);
+  border-radius: 999px;
+  outline: none;
+  box-shadow: var(--shadow-soft);
+}
+.search input::placeholder{
+  font-weight:400; color: color-mix(in oklab, var(--text-dark) 85%, transparent); opacity:1;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--tier1);
+  color: var(--text-dark);
+  border: 1px solid var(--bd-1);
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+  margin-left: 6px;
+}
+
+.login-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* REGLA @MEDIA MODIFICADA (Para Móvil) */
+@media (max-width: 560px){
+  .topbar-content { 
+    display: flex; /* En móvil, volvemos a flexbox */
+    flex-direction: column; /* Apilamos verticalmente */
+    align-items: stretch; /* Estiramos para que ocupen 100% ancho */
+    gap: 12px; 
+  }
+  
+  /* El logo se va arriba, centrado */
+  .brand {
+    justify-self: center; /* Reseteo de grid */
+    justify-content: center; /* Centramos el contenido de flex */
+    order: 0; 
+  }
+  
+  /* La búsqueda se va en medio, ancho completo */
+  .search{ 
+    order: 1; 
+    max-width: 100%; /* Ocupa todo el ancho */
+  }
+  
+  /* Los controles se van abajo, ancho completo y espaciados */
+  .controls{ 
+    justify-self: center; /* Reseteo de grid */
+    order: 2;
+    justify-content: space-between;
+  }
+  
+  /* Devolvemos el padding derecho en móvil para que no se pegue */
+  .topbar {
+    padding-right: 10px;
+  }
+}
+/* --- FIN: SECCIÓN DEL TOPBAR MODIFICADO --- */
+
+
+.panel{
+  background: var(--tier1);
+  border:1px solid var(--bd-1);
+  border-radius: 24px; /* MODIFICACIÓN: Más redondeado el panel principal */
+  box-shadow: var(--shadow-soft);
+  padding: 24px; /* MODIFICACIÓN: Más "aire" dentro del panel */
+  color: var(--text-dark);
+}
+
+.location{display:flex; align-items:center; gap:10px; flex-wrap:wrap;font-weight:800; margin-bottom:6px; color: var(--text-dark);font-size:1.15rem;}.location .icon-img{ width:1.25em; height:1.25em; vertical-align:-0.18em; }
+.meta{display:flex; gap:18px; font-size:1.02rem; margin-left:0;color: color-mix(in oklab, var(--text-dark) 80%, transparent);margin-bottom:8px; flex-wrap:wrap;}.meta-item{ display:inline-flex; align-items:center; gap:.45em; }.meta-item .icon-img{ width:1.1em; height:1.1em; vertical-align:-0.18em; }
+
+.grid{
+  display:grid; 
+  gap: 20px; /* MODIFICACIÓN: Más espacio entre tarjetas */
+  grid-template-columns: 1.2fr 1fr 1fr;
+}
+@media (max-width: 1024px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+/* --- REGLA MODIFICADA ("Sofisticado") --- */
+.card{
+  background: var(--tier2); 
+  color: var(--text-dark);
+  border-radius: var(--radius);
+  padding: 20px; /* MODIFICACIÓN: Padding unificado y con más aire */
+  
+  /* MODIFICACIÓN: ¡CLAVE! Borde eliminado, solo sombra */
+  /* border:1px solid var(--bd-2); */
+  box-shadow: var(--shadow-soft); 
+
+  /* MODIFICACIÓN: Transición para la micro-interacción */
+}
+
+/* MODIFICACIÓN: Micro-interacción al pasar el mouse */
+.card:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1); 
+}
+body.dark-mode .card:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3); 
+}
+
+
+.now{
+  position: relative;
+  min-height: 190px;
+  padding: 20px; /* MODIFICACIÓN: Alineado con el padding de .card */
+}
+
+.now .topleft {
+  position: absolute;
+  top: 65px; 
+  left: 20px; /* MODIFICACIÓN: Alineado al nuevo padding */
+  transform: none; 
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start; 
+  width: auto; 
+  max-width: calc(100% - 40px); 
+}
+
+.now .thermo {
+  width: clamp(55px, 10vw, 70px); 
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.08));
+}
+
+.now .temp {
+  font-size: clamp(3.2rem, 9vw, 4.5rem); 
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--text-dark);
+}
+
+.now .minmax{
+  position:absolute; 
+  top: 20px; /* MODIFICACIÓN: Alineado al nuevo padding */
+  right: 20px; /* MODIFICACIÓN: Alineado al nuevo padding */
+  text-align:right;
+  /* MODIFICACIÓN: Jerarquía - Texto más sutil */
+  color: color-mix(in oklab, var(--text-dark) 70%, transparent); 
+  line-height:1.3;
+  font-size: 1rem; 
+}
+
+
+.now .statusblock{
+  position:absolute; 
+  left: 20px; /* MODIFICACIÓN: Alineado al nuevo padding */
+  bottom: 20px; /* MODIFICACIÓN: Alineado al nuevo padding */
+  display:flex; 
+  flex-direction:column; 
+  gap:4px;
+  max-width: 60%;
+}
+.now .status{ 
+  font-weight: 800; 
+  color: var(--text-dark); 
+  font-size: 1.25rem; 
+}
+.now .feels{ 
+  /* MODIFICACIÓN: Jerarquía - Texto más sutil */
+  color: color-mix(in oklab, var(--text-dark) 70%, transparent); 
+  font-size: 1rem;
+}
+.now .wicon{ 
+  position:absolute; 
+  right: 20px; /* MODIFICACIÓN: Alineado al nuevo padding */
+  bottom: 16px; 
+}
+.now .wicon img{width: clamp(68px, 18vw, 110px);height:auto; display:block; object-fit: contain;filter: drop-shadow(0 6px 12px rgba(0,0,0,.08));}
+@media (max-width: 560px){
+  .now{ min-height: 170px; padding: 16px; }
+  .now .temp{ font-size: clamp(1.9rem, 7vw, 2.3rem); }
+  .now .wicon img{ width: clamp(60px, 24vw, 96px); }
+  /* MODIFICACIÓN: Ajustes responsive para el nuevo padding */
+  .now .topleft { left: 16px; }
+  .now .minmax { top: 16px; right: 16px; }
+  .now .statusblock { left: 16px; bottom: 16px; }
+  .now .wicon { right: 16px; bottom: 12px; }
+}
+
+.sun-card{
+  min-height:168px;
+  display:flex; 
+  align-items:center; 
+  justify-content:space-around; 
+  text-align:center;
+}
+.sun-card .item{ 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  gap: 8px; /* MODIFICACIÓN: Más espacio */
+  font-size:1.05rem; 
+}
+.sun-card .sun-icon{
+  width: clamp(56px, 7vw, 88px);
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 4px;
+}
+/* MODIFICACIÓN: Jerarquía - La etiqueta es secundaria */
+.sun-card .label{ 
+  opacity:.7; 
+  letter-spacing:.2px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+/* MODIFICACIÓN: Jerarquía - La hora (el dato) es principal */
+.sun-card .k {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.metrics{
+  display:grid; 
+  gap: 14px; /* MODIFICACIÓN: Más espacio entre métricas */
+  grid-template-columns: repeat(3, 1fr);
+}
+.metric{
+  background: var(--tier3); 
+  color: var(--text-dark);
+  /* MODIFICACIÓN: ¡CLAVE! Borde eliminado para un look más "soft" */
+  /* border:1px solid var(--bd-3); */ 
+  border-radius: 14px; /* MODIFICACIÓN: Más redondeado */
+  padding: 16px; /* MODIFICACIÓN: Más padding */
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  text-align:center;
+  gap: 6px; 
+  min-height:132px;
+}
+.metric .icon-img.big{ 
+  width:44px; 
+  height:44px; 
+  object-fit:contain 
+}
+/* MODIFICACIÓN: Jerarquía - La etiqueta es secundaria */
+.metric .k{ 
+  font-size: 0.9rem; 
+  font-weight: 600;
+  opacity: 0.8;
+  margin-top: 4px; 
+}
+/* MODIFICACIÓN: Jerarquía - El valor es principal */
+.metric .v{ 
+  opacity: 1; 
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.metric.is-humidity{ grid-column: span 2; }
+@media (max-width: 900px){
+  .metrics{ grid-template-columns: repeat(2, 1fr); }
+  .metric.is-humidity{ grid-column: span 2; }
+}
+@media (max-width: 560px){
+  .metrics{ grid-template-columns: 1fr; }
+  .metric.is-humidity{ grid-column: span 1; }
+}
+
+/* --- REGLA MODIFICADA (Para Carrusel) --- */
+.forecast{
+  margin-top: 16px; 
+  padding: 16px; 
+  background: var(--tier2);
+  border-radius: var(--radius); 
+  color: var(--text-dark);
+  box-shadow: var(--shadow-soft); 
+  overflow: hidden; /* Oculta scrollbar que se sale */
+}
+
+/* --- REGLA MODIFICADA (Para Carrusel) --- */
+.flist{ 
+  display: grid; 
+  gap: 12px; 
+  
+  /* 1. Flujo en fila */
+  grid-auto-flow: column; 
+  /* 2. Ancho de items */
+  grid-auto-columns: minmax(150px, 1fr); 
+  /* 3. Scroll horizontal */
+  overflow-x: auto; 
+
+  /* 4. Truco para ocultar la barra de scroll */
+  padding-bottom: 20px;
+  margin-bottom: -20px;
+  -ms-overflow-style: none;  /* IE y Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* 5. Oculta la barra de scroll en Chrome/Safari */
+.flist::-webkit-scrollbar {
+  display: none;
+}
+
+/* 6. YA NO SE NECESITA la media query para .flist */
+
+.fitem{
+  background: var(--tier3); 
+  color: var(--text-dark);
+  /* MODIFICACIÓN: Borde eliminado */
+  /* border:1px solid var(--bd-3); */
+  border-radius: 14px; 
+  padding: 12px;
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  text-align:center; 
+  gap:8px;
+  min-width: 150px; /* Asegura ancho mínimo en carrusel */
+}
+.fitem .t{ font-weight:700; font-size:.95rem; }
+.fitem .wimg{ width:38px; height:38px; object-fit:contain }
+.fitem .mmv{ display:flex; flex-direction:column; gap:4px; }
+.fitem .row{ opacity:.9 }
+
+
+.badge{display:inline-flex; align-items:center; gap:6px;padding:6px 10px; border-radius:10px;background: var(--tier1); color: var(--text-dark);border:1px solid var(--bd-1);}
+.sep{ height:1px; background: var(--bd-2); margin:10px 0; opacity:.8 }
+.small{ font-size:.92rem }
+.icon-img{ width:1.15em; height:1.15em; vertical-align:-0.15em }
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin-left: 6px;
+}
+.toggle-dark, .toggle-temp-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 28px;
+  background-color: var(--tier1);
+  border-radius: 999px;
+  border: 1px solid var(--bd-1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slider:not(.temp-slider)::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+.toggle-dark:checked + .slider:not(.temp-slider)::before {
+  transform: translateX(21px);
+}
+.toggle-dark:checked + .slider {
+  background-color: var(--tier1);
+}
+
+.slider.temp-slider > .handle {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  
+  display: grid;
+  place-items: center;
+  font-family: Inter, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  color: #353f4f; 
+}
+.toggle-temp-checkbox:checked + .temp-slider > .handle {
+  transform: translateX(21px);
+}
+
+.handle-c, .handle-f {
+  grid-area: 1 / 1; 
+  transition: opacity 0.2s ease;
+}
+
+.handle-f {
+  opacity: 0;
+}
+
+.toggle-temp-checkbox:checked + .temp-slider .handle-c {
+  opacity: 0;
+}
+.toggle-temp-checkbox:checked + .temp-slider .handle-f {
+  opacity: 1;
+}
+
+/* --- ESTILOS PARA EL NUEVO ENCABEZADO DE INFORMACIÓN --- */
+.info-header {
+  background: var(--tier2);
+  /* MODIFICACIÓN: ¡CLAVE! Borde eliminado */
+  /* border: 1px solid var(--bd-2); */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 12px 16px;
+  margin-bottom: 20px; /* MODIFICACIÓN: Más espacio */
+}
+
+.location, .meta {
+  justify-content: center;
+}
+
+/* --- ESTILOS PARA LA LISTA DESPLEGABLE DE BÚSQUEDA --- */
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px); 
+  left: 0;
+  width: 100%;
+  background: var(--tier2);
+  border: 1px solid var(--bd-2); /* Mantenemos borde para que "salga" */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  z-index: 10;
+  overflow: hidden; 
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.search:focus-within .search-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  color: var(--text-dark);
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item .icon-img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
+}
+
+.dropdown-item:hover {
+  background-color: var(--tier3);
+}
+
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid var(--bd-3);
+}
+
+
+/* --- ESTILOS PARA LA NUEVA SECCIÓN DE LUNAS --- */
+/* (AÑADIDOS AL FINAL) */
+
+/* Estilo para el título de las secciones de pronóstico */
+.forecast-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  /* Ajuste para alinear con el padding interior de .forecast */
+  margin: -4px 0 12px 4px; 
+  color: var(--text-dark);
+}
+
+/* Contenedor específico de lunas (para separarlo del panel de arriba) */
+.moon-forecast {
+  /* .forecast ya tiene un margin-top, pero podemos asegurarlo */
+  margin-top: 20px; 
+}
+
+/* Ajustes para el item de luna (reusa .fitem) */
+.moon-item {
+  gap: 10px; /* Un poco más de espacio entre elementos */
+  padding: 16px 12px;
+}
+
+/* Estilo para el nombre de la fase lunar */
+.moon-phase {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.8;
+  line-height: 1.3;
+  /* Asegura que el texto se corte si es muy largo */
+  white-space: normal;
+  min-height: 2.6em; /* Espacio para dos líneas */
+}
+
+/* Asegurarnos que la imagen de la luna (reusa .wimg) se vea bien */
+.moon-item .wimg {
+  width: 42px; /* Un poco más grande que el icono de clima */
+  height: 42px;
+  margin: 4px 0;
+}
