@@ -1,48 +1,48 @@
 import React, { useState, useEffect } from 'react';
-// Importa los datos simulados
-import { climaCiudad, lunasSemana } from './data'; // <-- Asegúrate que 'lunasSemana' esté importado
-// Importa todos los estilos globales
+
+import { climaCiudad, lunasSemana } from './data'; 
 import './App.css'; 
 
-// Importación de los 4 componentes de página
 import WeatherPanel from './components/WeatherPanel';
 import LoginScreen from './components/LoginScreen'; 
 import RegisterScreen from './components/RegisterScreen'; 
 import PresentationScreen from './components/PresentationScreen';
 
-/**
- * Función que convierte Celsius a Fahrenheit.
- * @param {number} celsius - Temperatura en Celsius.
- * @returns {number} Temperatura en Fahrenheit.
- */
+
 const celsiusToFahrenheit = (celsius) => (celsius * 9 / 5 + 32);
 
-// --- Componente Principal de la Aplicación ---
 function App() {
-  // Carga los datos de clima
   const data = climaCiudad; 
 
-  // --- Lógica de Estado Global ---
   
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('loggedIn') === 'true');
-  
   const [currentPage, setCurrentPage] = useState(isLoggedIn ? 'home' : 'welcome');
-  
   const [isFahrenheit, setIsFahrenheit] = useState(false);
-  
   const [isDarkMode, setIsDarkMode] = useState(false); 
 
-  // --- Handlers y Efectos ---
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      document.body.classList.add('app-container')
+    
+    if (currentPage === 'home') {
+      document.body.classList.add('home-page-styles');
+
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        document.body.classList.add('app-container');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.remove('app-container');
+      }
+
     } else {
+
+      document.body.classList.remove('home-page-styles');
       document.body.classList.remove('dark-mode');
-      document.body.classList.remove('app-container')
+      document.body.classList.remove('app-container');
     }
-  }, [isDarkMode]);
+
+  }, [isDarkMode, currentPage]);
+  
 
   const handleDarkModeToggle = () => {
     setIsDarkMode(prev => !prev);
@@ -70,7 +70,6 @@ function App() {
   };
 
 
-  // --- Función de Enrutamiento (Routing) ---
   const renderPage = () => {
     switch(currentPage) {
       case 'welcome':
@@ -100,26 +99,22 @@ function App() {
                />;
       case 'home':
       default:
-        // --- ESTA ES LA PARTE IMPORTANTE ---
-        // Fíjate que aquí YA NO HAY CÓDIGO DE LUNAS.
-        // Solo renderiza el WeatherPanel y le pasa 'lunasSemana' como prop.
         return (
           <div className="app">
             <WeatherPanel 
               data={data} 
               getTempValue={getTempValue} 
-              lunasData={lunasSemana} 
+              lunasData={lunasSemana}
+              isLoggedIn={isLoggedIn} 
             />
           </div>
         );
     }
   }
 
-  // --- Renderizado Principal (El Contenedor de la Aplicación) ---
   return (
     <div className="app-container">
       
-      {/* HEADER (TOPBAR) */}
       {currentPage === 'home' && (
         <header className="topbar">
           <div className="topbar-content">
@@ -187,7 +182,6 @@ function App() {
         </header>
       )}
 
-      {/* CONTENIDO PRINCIPAL */}
       {renderPage()}
       
     </div>

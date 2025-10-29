@@ -1,53 +1,61 @@
 import React from 'react';
-// 1. Importa los estilos y los llama 'styles'
-import styles from './PresentationScreen.module.css'; 
+// importar estilos específicos
+import styles from './PresentationScreen.module.css';
 
-// Recibe funciones para cambiar de página o entrar como invitado
+// componente para la pantalla de bienvenida/presentación
 function PresentationScreen({ onNavigate, onGuestLogin }) {
+  // recibe funciones para ir a login/registro o entrar como invitado
+
+  // estructura html de la pantalla
   return (
-    // 2. Usa los estilos importados (ej: styles.authPage)
+    // contenedor principal
     <div className={styles.authPage}>
+      {/* contenedor interior */}
       <div className={styles.shell}>
-        
-        {/* Columna de Arte (Imagen) */}
+
+        {/* sección izquierda con imagen */}
         <div className={styles.art}>
           <div className={styles.band}>
-            {/* Solo la imagen de las montañas (como pediste) */}
-            <img className={styles.mountains} src="./img/mountains.png" alt="Montañas" />
+            <img className={styles.mountains} src="./img/mountains.png" alt="montañas" />
           </div>
         </div>
 
-        {/* Columna de Contenido (Texto y Botones) */}
+        {/* sección derecha con texto y botones */}
         <div className={styles.formCard}>
-          <h1>¡Bienvenido!</h1>
+          {/* texto de bienvenida */}
+          <h1>¡bienvenido!</h1>
           <p>
-            ¡Planifica tu día!<br/>
-            Nosotros nos encargamos del clima
+            ¡planifica tu día!<br/>
+            nosotros nos encargamos del clima
           </p>
 
+          {/* contenedor de los botones */}
           <div className={styles.actions}>
-            <a 
-              className={styles.btn} 
-              href="#" 
+            {/* botón para ir a iniciar sesión */}
+            <a
+              className={styles.btn}
+              href="#"
               onClick={(e) => { e.preventDefault(); onNavigate('login'); }}
             >
-              Iniciar Sesión
+              iniciar sesión
             </a>
-            
-            <a 
-              className={styles.btn} 
-              href="#" 
+
+            {/* botón para ir a registro */}
+            <a
+              className={styles.btn}
+              href="#"
               onClick={(e) => { e.preventDefault(); onNavigate('register'); }}
             >
-              Registro
+              registro
             </a>
-            
-            <a 
-              className={styles.btn} 
-              href="#" 
+
+            {/* botón para entrar como invitado */}
+            <a
+              className={styles.btn}
+              href="#"
               onClick={(e) => { e.preventDefault(); onGuestLogin(); }}
             >
-              Invitado
+              invitado
             </a>
           </div>
         </div>
@@ -56,5 +64,5 @@ function PresentationScreen({ onNavigate, onGuestLogin }) {
   );
 }
 
+// exportar componente
 export default PresentationScreen;
-

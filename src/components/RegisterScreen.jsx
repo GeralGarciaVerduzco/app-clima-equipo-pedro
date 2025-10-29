@@ -1,51 +1,62 @@
 import React from 'react';
-// 1. IMPORTANTE: Importa los estilos como 'styles'
+// importar estilos para esta pantalla
 import styles from './RegisterScreen.module.css';
 
-// Recibe las funciones de navegación desde App.jsx
+// componente para la pantalla de registro
 function RegisterScreen({ onRegisterSuccess, onNavigateToLogin }) {
+  // recibe funciones para manejar el éxito y para ir a login
 
-  // Simula un registro exitoso
+  // función para cuando se intenta registrar
   const handleRegister = (e) => {
-    e.preventDefault();
-    // Aquí iría la lógica de validación
-    onRegisterSuccess();
+    e.preventDefault(); // previene recarga
+    onRegisterSuccess(); // avisa que el registro fue exitoso (simulado)
   };
 
+  // estructura html de la pantalla
   return (
-    // 2. Usa la clase 'authPage' del módulo
+    // contenedor principal
     <div className={styles.authPage}>
-      {/* 3. Todas las clases ahora usan 'styles.nombreDeLaClase' */}
+      {/* contenedor interior */}
       <main className={styles.shell}>
+        {/* imagen de la izquierda */}
         <aside className={styles.art}>
           <div className={styles.band}>
-            <img className={styles.mountains} src="./img/mountains.png" alt="Montañas" />
+            <img className={styles.mountains} src="./img/mountains.png" alt="montañas" />
           </div>
         </aside>
 
+        {/* formulario de la derecha */}
         <div className={styles.formCard} role="form" aria-labelledby="t">
-          <h1 id="t">¡Comencemos!</h1>
+          {/* título */}
+          <h1 id="t">¡comencemos!</h1>
 
-          <label className={styles.label} htmlFor="user">Usuario</label>
-          <input id="user" className={styles.input} type="text" placeholder="Crea un nombre de usuario" autoComplete="username" />
+          {/* campo usuario */}
+          <label className={styles.label} htmlFor="user">usuario</label>
+          <input id="user" className={styles.input} type="text" placeholder="crea un nombre de usuario" autoComplete="username" />
 
-          <label className={styles.label} htmlFor="email">Email</label>
-          <input id="email" className={styles.input} type="email" placeholder="Ingresa tu Email" autoComplete="email" />
+          {/* campo email */}
+          <label className={styles.label} htmlFor="email">email</label>
+          <input id="email" className={styles.input} type="email" placeholder="ingresa tu email" autoComplete="email" />
 
-          <label className={styles.label} htmlFor="pass">Contraseña</label>
-          <input id="pass" className={styles.input} type="password" placeholder="Ingresa una contraseña" autoComplete="new-password" />
+          {/* campo contraseña */}
+          <label className={styles.label} htmlFor="pass">contraseña</label>
+          <input id="pass" className={styles.input} type="password" placeholder="ingresa una contraseña" autoComplete="new-password" />
 
+          {/* aceptar términos */}
           <label className={styles.check}>
             <input type="checkbox" id="terms" />
-            <span>Acepto los <b>Términos & Condiciones</b></span>
+            <span>acepto los <b>términos & condiciones</b></span>
           </label>
 
-          <a className={styles.btn} href="#" onClick={handleRegister}>Registrarse</a>
-          
+          {/* botón de registrarse */}
+          <a className={styles.btn} href="#" onClick={handleRegister}>registrarse</a>
+
+          {/* enlace para ir a iniciar sesión */}
           <div className={styles.formLink}>
-            ¿Ya tienes cuenta? <span onClick={onNavigateToLogin}>Inicia Sesión aquí</span>
+            ¿ya tienes cuenta? <span onClick={onNavigateToLogin}>inicia sesión aquí</span>
           </div>
 
+          {/* sección extra al final */}
           <div className={styles.snow}>
           </div>
         </div>
@@ -54,5 +65,5 @@ function RegisterScreen({ onRegisterSuccess, onNavigateToLogin }) {
   );
 }
 
+// exportar
 export default RegisterScreen;
-

@@ -1,13 +1,16 @@
 import React from 'react';
 
-// Recibe el ítem de pronóstico y el conversor de temperatura
+// componente para mostrar un item del pronóstico por hora
 function ForecastItem({ item, getTempValue }) {
+  // item: datos de la hora (hora, icono, temps)
+  // getTempValue: función para mostrar temp en °c o °f
+
+  // estructura html de la tarjeta de pronóstico
   return (
     <div className="fitem">
       <div className="t">{item.time}</div>
-      <img className="wimg" src={item.icon} alt="Clima" />
+      <img className="wimg" src={item.icon} alt="clima" />
       <div className="mmv">
-        {/* Usamos el conversor para mostrar C o F */}
         <div> mín <b className="row temp-value">{getTempValue(item.minC)}</b></div>
         <div> máx <b className="row temp-value">{getTempValue(item.maxC)}</b></div>
       </div>
@@ -15,4 +18,5 @@ function ForecastItem({ item, getTempValue }) {
   );
 }
 
+// exportar para usarlo en otros lados
 export default ForecastItem;
