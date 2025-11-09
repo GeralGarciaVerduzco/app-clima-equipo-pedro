@@ -23,10 +23,10 @@ function PresentationScreen({ onNavigate, onGuestLogin }) {
         {/* sección derecha con texto y botones */}
         <div className={styles.formCard}>
           {/* texto de bienvenida */}
-          <h1>¡bienvenido!</h1>
+          <h1>¡Bienvenido!</h1>
           <p>
-            ¡planifica tu día!<br/>
-            nosotros nos encargamos del clima
+            ¡Planifica tu día!<br/>
+            Nosotros nos encargamos del clima
           </p>
 
           {/* contenedor de los botones */}
@@ -37,7 +37,7 @@ function PresentationScreen({ onNavigate, onGuestLogin }) {
               href="#"
               onClick={(e) => { e.preventDefault(); onNavigate('login'); }}
             >
-              iniciar sesión
+              Iniciar sesión
             </a>
 
             {/* botón para ir a registro */}
@@ -46,7 +46,7 @@ function PresentationScreen({ onNavigate, onGuestLogin }) {
               href="#"
               onClick={(e) => { e.preventDefault(); onNavigate('register'); }}
             >
-              registro
+              Registro
             </a>
 
             {/* botón para entrar como invitado */}
@@ -55,7 +55,7 @@ function PresentationScreen({ onNavigate, onGuestLogin }) {
               href="#"
               onClick={(e) => { e.preventDefault(); onGuestLogin(); }}
             >
-              invitado
+              Invitado
             </a>
           </div>
         </div>

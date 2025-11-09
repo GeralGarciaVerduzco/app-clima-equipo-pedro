@@ -28,32 +28,32 @@ function RegisterScreen({ onRegisterSuccess, onNavigateToLogin }) {
         {/* formulario de la derecha */}
         <div className={styles.formCard} role="form" aria-labelledby="t">
           {/* título */}
-          <h1 id="t">¡comencemos!</h1>
+          <h1 id="t">¡Comencemos!</h1>
 
           {/* campo usuario */}
-          <label className={styles.label} htmlFor="user">usuario</label>
-          <input id="user" className={styles.input} type="text" placeholder="crea un nombre de usuario" autoComplete="username" />
+          <label className={styles.label} htmlFor="user">Usuario</label>
+          <input id="user" className={styles.input} type="text" placeholder="Crea un nombre de usuario" autoComplete="username" />
 
           {/* campo email */}
-          <label className={styles.label} htmlFor="email">email</label>
-          <input id="email" className={styles.input} type="email" placeholder="ingresa tu email" autoComplete="email" />
+          <label className={styles.label} htmlFor="email">Email</label>
+          <input id="email" className={styles.input} type="email" placeholder="Ingresa tu email" autoComplete="email" />
 
           {/* campo contraseña */}
-          <label className={styles.label} htmlFor="pass">contraseña</label>
-          <input id="pass" className={styles.input} type="password" placeholder="ingresa una contraseña" autoComplete="new-password" />
+          <label className={styles.label} htmlFor="pass">Contraseña</label>
+          <input id="pass" className={styles.input} type="password" placeholder="Ingresa una contraseña" autoComplete="new-password" />
 
           {/* aceptar términos */}
           <label className={styles.check}>
             <input type="checkbox" id="terms" />
-            <span>acepto los <b>términos & condiciones</b></span>
+            <span>Acepto los <b>términos & condiciones</b></span>
           </label>
 
           {/* botón de registrarse */}
-          <a className={styles.btn} href="#" onClick={handleRegister}>registrarse</a>
+          <a className={styles.btn} href="#" onClick={handleRegister}>Registrarse</a>
 
           {/* enlace para ir a iniciar sesión */}
           <div className={styles.formLink}>
-            ¿ya tienes cuenta? <span onClick={onNavigateToLogin}>inicia sesión aquí</span>
+            ¿Ya tienes cuenta? <span onClick={onNavigateToLogin}>Inicia sesión aquí</span>
           </div>
 
           {/* sección extra al final */}

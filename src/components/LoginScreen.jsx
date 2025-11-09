@@ -28,28 +28,28 @@ function LoginScreen({ onLoginSuccess, onNavigateToRegister }) {
         {/* parte derecha con el formulario */}
         <div className={styles.formCard} role="form" aria-labelledby="t">
           {/* título principal */}
-          <h1 id="t">¡hola otra vez!</h1>
+          <h1 id="t">¡Hola otra vez!</h1>
 
           {/* campo de email */}
-          <label className={styles.label} htmlFor="email">email</label>
-          <input id="email" className={styles.input} type="email" placeholder="ingresa tu email" autoComplete="email" />
+          <label className={styles.label} htmlFor="email">Email</label>
+          <input id="email" className={styles.input} type="email" placeholder="Ingresa tu email" autoComplete="email" />
 
           {/* campo de contraseña */}
-          <label className={styles.label} htmlFor="pass">contraseña</label>
-          <input id="pass" className={styles.input} type="password" placeholder="ingresa tu contraseña" autoComplete="current-password" />
+          <label className={styles.label} htmlFor="pass">Contraseña</label>
+          <input id="pass" className={styles.input} type="password" placeholder="Ingresa tu contraseña" autoComplete="current-password" />
 
           {/* opción para recordar */}
           <label className={styles.check}>
             <input type="checkbox" id="remember" />
-            <span>recuérdame por 3 meses</span>
+            <span>Recuérdame por 3 meses</span>
           </label>
 
           {/* botón de acción principal */}
-          <a className={styles.btn} href="#" onClick={handleLogin}>iniciar sesión</a>
+          <a className={styles.btn} href="#" onClick={handleLogin}>Iniciar sesión</a>
 
           {/* enlace secundario para registrarse */}
           <div className={styles.formLink}>
-            ¿no tienes cuenta? <span onClick={onNavigateToRegister}>regístrate aquí</span>
+            ¿No tienes cuenta? <span onClick={onNavigateToRegister}>Regístrate aquí</span>
           </div>
 
           {/* contenedor extra al final (puede ser para espaciado o contenido adicional) */}
