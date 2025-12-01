@@ -1,65 +1,123 @@
-import React from 'react';
-// importar estilos específicos para esta pantalla
+import React, { useState } from 'react';
 import styles from './LoginScreen.module.css';
+import { login } from '../../api/auth';
 
 // componente para la pantalla de inicio de sesión
 function LoginScreen({ onLoginSuccess, onNavigateToRegister }) {
-  // recibe funciones para manejar el éxito y para ir a registro
+  // estado local para el formulario y la UI
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // función para cuando se intenta iniciar sesión
-  const handleLogin = (e) => {
-    e.preventDefault(); // previene recarga de página
-    onLoginSuccess(); // avisa que el login fue exitoso (simulado)
+  
+  const handleLogin = async (e) => {
+    e.preventDefault(); 
+    setLoading(true);
+    setError('');
+
+    try {
+      
+      const { accessToken, refreshToken } = await login(email, password);
+
+      
+      onLoginSuccess({ accessToken, refreshToken });
+    } catch (err) {
+      console.error(err);
+      setError('No se pudo iniciar sesión. Verifica tu correo y contraseña.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   // estructura html de la pantalla
   return (
-    // contenedor principal de la página
     <div className={styles.authPage}>
-      {/* contenedor interior principal */}
       <main className={styles.shell}>
         {/* parte izquierda con la imagen */}
         <aside className={styles.art}>
           <div className={styles.band}>
-            <img className={styles.mountains} src="./img/mountains.png" alt="montañas" />
+            <img
+              className={styles.mountains}
+              src="./img/mountains.png"
+              alt="montañas"
+            />
           </div>
         </aside>
 
         {/* parte derecha con el formulario */}
         <div className={styles.formCard} role="form" aria-labelledby="t">
-          {/* título principal */}
           <h1 id="t">¡Hola otra vez!</h1>
 
-          {/* campo de email */}
-          <label className={styles.label} htmlFor="email">Email</label>
-          <input id="email" className={styles.input} type="email" placeholder="Ingresa tu email" autoComplete="email" />
+          {/* usamos un <form> para manejar submit correctamente */}
+          <form onSubmit={handleLogin}>
+            {/* campo de email */}
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
+            <input
+              id="email"
+              className={styles.input}
+              type="email"
+              placeholder="Ingresa tu email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          {/* campo de contraseña */}
-          <label className={styles.label} htmlFor="pass">Contraseña</label>
-          <input id="pass" className={styles.input} type="password" placeholder="Ingresa tu contraseña" autoComplete="current-password" />
+            {/* campo de contraseña */}
+            <label className={styles.label} htmlFor="pass">
+              Contraseña
+            </label>
+            <input
+              id="pass"
+              className={styles.input}
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          {/* opción para recordar */}
-          <label className={styles.check}>
-            <input type="checkbox" id="remember" />
-            <span>Recuérdame por 3 meses</span>
-          </label>
+            {/* opción para recordar */}
+            <label className={styles.check}>
+              <input
+                type="checkbox"
+                id="remember"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <span>Recuérdame por 3 meses</span>
+            </label>
 
-          {/* botón de acción principal */}
-          <a className={styles.btn} href="#" onClick={handleLogin}>Iniciar sesión</a>
+            {/* mensaje de error si algo falla */}
+            {error && <p className={styles.error}>{error}</p>}
+
+            {/* botón de acción principal */}
+            <button
+              type="submit"
+              className={styles.btn}
+              disabled={loading}
+            >
+              {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+            </button>
+          </form>
 
           {/* enlace secundario para registrarse */}
           <div className={styles.formLink}>
-            ¿No tienes cuenta? <span onClick={onNavigateToRegister}>Regístrate aquí</span>
+            ¿No tienes cuenta?{' '}
+            <span onClick={onNavigateToRegister}>
+              Regístrate aquí
+            </span>
           </div>
 
-          {/* contenedor extra al final (puede ser para espaciado o contenido adicional) */}
-          <div className={styles.snow}>
-          </div>
+          {/* contenedor extra al final */}
+          <div className={styles.snow}></div>
         </div>
       </main>
     </div>
   );
 }
 
-// exportar componente
 export default LoginScreen;
