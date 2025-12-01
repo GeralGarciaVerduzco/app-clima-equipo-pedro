@@ -511,6 +511,10 @@ body.home-page-styles.dark-mode .card:hover { box-shadow: 0 14px 35px rgba(0, 0,
   align-items: center;
 }
 
+.chip:hover {
+  background: var(--tier3);
+}
+
 .saved-location-group { grid-area: location; align-self: end; }
 .saved-city { font-weight: 700; font-size: 1.5rem; color: var(--text-dark); line-height: 1.2; }
 .saved-subtitle { font-size: 0.95rem; color: color-mix(in oklab, var(--text-dark) 70%, transparent); line-height: 1.2; }

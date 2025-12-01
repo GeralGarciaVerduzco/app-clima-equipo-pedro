@@ -1,5 +1,5 @@
 import React from 'react';
-import ForecastItem from './ForecastItem';
+import ForecastItem from '../components/ForecastItem';
 
 function WeatherPanel({ data, getTempValue, lunasData = [], isLoggedIn }) {
   const current = data.current;
