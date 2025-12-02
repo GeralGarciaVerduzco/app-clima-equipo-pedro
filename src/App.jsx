@@ -133,7 +133,7 @@ function App() {
     }
   };
 
-  // 🔹 helper para cargar clima por coordenadas
+  
   const loadWeatherByCoords = async (lat, lon, meta) => {
     try {
       setWeatherLoading(true);
@@ -158,19 +158,19 @@ function App() {
     }
   };
 
-  // 🔹 cargar clima inicial al entrar a la app
+
   useEffect(() => {
-    // Cancún aprox; cámbialo si quieres otro default
+ 
     loadWeatherByCoords(21.1619, -86.8515);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, []);
 
-  // 🔍 búsqueda: actualiza campo
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // 🔍 búsqueda: submit desde Header
+ 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     const q = searchQuery.trim();
@@ -203,7 +203,7 @@ function App() {
     }
   };
 
-  // 🔍 click en un resultado del dropdown
+  
   const handleSearchResultClick = async (loc) => {
     await loadWeatherByCoords(loc.lat, loc.lon, loc);
     setSearchResults([]);

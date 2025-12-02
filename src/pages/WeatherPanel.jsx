@@ -3,35 +3,6 @@ import ForecastItem from '../components/ForecastItem';
 
 
 
-
-
-
-function buildMoonForecast(startLocalDate, days = 7) {
-  const result = [];
-  for (let i = 0; i < days; i++) {
-    const d = new Date(
-      startLocalDate.getFullYear(),
-      startLocalDate.getMonth(),
-      startLocalDate.getDate() + i,
-      startLocalDate.getHours(),
-      startLocalDate.getMinutes(),
-    );
-    const { name, emoji } = getMoonPhaseInfo(d);
-
-    result.push({
-      dia: d.toLocaleDateString('es-MX', {
-        weekday: 'short',
-        day: '2-digit',
-      }),
-      fase: name,
-      emoji,
-    
-    });
-  }
-  return result;
-}
-
-
 function WeatherPanel({ data, getTempValue, lunasData = [], isLoggedIn }) {
   if (!data || !data.current) {
     return (

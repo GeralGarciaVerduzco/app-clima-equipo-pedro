@@ -133,17 +133,25 @@ export function mapBackendWeatherToPanel(raw) {
   const sunsetTs = currentSrc.sys?.sunset ?? null;
 
   const sunriseDate = sunriseTs
-    ? makeLocalDateFromUtcSeconds(sunriseTs, tzOffset)
+    ? new Date((sunriseTs) * 1000)
     : null;
   const sunsetDate = sunsetTs
-    ? makeLocalDateFromUtcSeconds(sunsetTs, tzOffset)
+    ? new Date((sunsetTs) * 1000)
     : null;
 
+    console.log('tzOffset', tzOffset);
+
+    console.log('sunriseTs', sunriseTs);
+    console.log('sunsetTs', sunsetTs);
+
+    console.log('sunriseDate', sunriseDate);
+    console.log('sunsetDate', sunsetDate);
+
   const sunrise = sunriseDate
-    ? sunriseDate.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' })
+    ? sunriseDate.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' , timezone: 'UTC'})
     : '--';
   const sunset = sunsetDate
-    ? sunsetDate.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' })
+    ? sunsetDate.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', timezone: 'UTC'})
     : '--';
 
  const refDate = makeLocalDateFromUtcSeconds(currentSrc.dt, tzOffset);
@@ -153,13 +161,13 @@ const dateStr = refDate.toLocaleDateString('es-MX', {
   day: '2-digit',
   month: '2-digit',
   year: 'numeric',
-  timeZone: 'UTC',            // 👈 IMPORTANTE
+  timeZone: 'UTC',            
 });
 
 const timeStr = refDate.toLocaleTimeString('es-MX', {
   hour: '2-digit',
   minute: '2-digit',
-  timeZone: 'UTC',            // 👈 IMPORTANTE
+  timeZone: 'UTC',            
 });
 
 
